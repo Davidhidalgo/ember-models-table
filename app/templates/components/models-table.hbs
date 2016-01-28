@@ -56,6 +56,27 @@
       {{! table header end }}
       {{! table body start }}
       <tbody>
+
+      {{#each total as |record|}}
+        <tr class="total-row">
+          {{#each processedColumns as |column|}}
+            {{#if column.isVisible}}
+              <td class={{if column.classNameTotal column.classNameTotal column.className}}>
+                {{#if column.templateTotal}}
+                  {{partial column.templateTotal}}
+                {{else if column.propertyNameTotal}}
+                  {{get record column.propertyNameTotal}}
+                {{else if column.template}}
+                  {{partial column.template}}
+                {{else}}
+                  {{get record column.propertyName}}
+                {{/if}}
+              </td>
+            {{/if}}
+          {{/each}}
+        </tr>
+      {{/each}}
+
       {{#if allColumnsAreHidden}}
         <tr><td colspan={{processedColumns.length}} class="{{classes.noDataCell}}">{{{messages.allColumnsAreHidden}}}</td></tr>
       {{else}}
